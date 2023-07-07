@@ -12,16 +12,16 @@ const app = express();
 app.use(express.json());
 
 
-app.post("/register", (req, res) => {
+app.post("/register", async (req, res) => {
     try{
         const {name, email, password} = req.body;
         if(!(name && email && password)){
             res.status(404).send("All input is required");
         }
 
-        encryptedPassword = bcrypt.hash(password, 10);
+        encryptedPassword = await bcrypt.hash(password, 10);
 
-        const user = User.create({
+        const user = await User.create({
             name,
             email: email.toLowerCase(), 
             password: encryptedPassword,
