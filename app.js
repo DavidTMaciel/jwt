@@ -60,11 +60,13 @@ app.post('/login', async (req, res) => {
             {
                 expiresIn: "1h"
             })
+
+            user.token = token;
+
+            res.status(200).json(user);
         };
 
-        user.token = token;
 
-        res.status(200).json(user);
     }catch(err){
         console.log(err);
     }
